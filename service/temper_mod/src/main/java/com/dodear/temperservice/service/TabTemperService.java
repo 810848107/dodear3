@@ -19,17 +19,17 @@ public interface TabTemperService extends IService<TabTemper> {
      * 添加一个心情
      * @return
      */
-    Boolean AddOneTemperByUid(Integer uid,String temper);
+    Boolean AddOneTemperByUid(TabTemper tabTemper);
 
     /**
      * 展示所有的心情
      * @return
      */
-    List<TabTemper> ShowAllTemper();
+    List<TabTemper> ShowAllTemperByUid(Integer uid);
 
     /**
      * 根据心情名称删除一个心情
      * @return
      */
-    Boolean DeleOneTemper(String temper);
+    Boolean DeleOneTemper(Integer uid,String temper);
 }

@@ -25,55 +25,40 @@ public class TabTemperServiceImpl extends ServiceImpl<TabTemperMapper, TabTemper
     private TabTemperService tabTemperService;
 
     @Override
-    public Boolean AddOneTemperByUid(Integer uid,String temper) {
+    public Boolean AddOneTemperByUid(TabTemper tabTemper) {
         QueryWrapper<TabTemper> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(TabTemper::getUid,uid);
-        TabTemper tabtemper = tabTemperService.getOne(wrapper);
+        wrapper.lambda().eq(TabTemper::getUid,tabTemper.getUid());
+        wrapper.lambda().eq(TabTemper::getTemperdemo,tabTemper.getTemperdemo());
+        TabTemper one = tabTemperService.getOne(wrapper);
+        if (one!=null){
+            return false;
+        }else {
+            tabTemperService.save(tabTemper);
+            return true;
+        }
 
-
-
-//        tabTemperService.update(tabtemper,)
-
-        return null;
     }
 
     @Override
-    public List<TabTemper> ShowAllTemper() {
-        List<TabTemper> list = tabTemperService.list(null);
+    public List<TabTemper> ShowAllTemperByUid(Integer uid) {
+        QueryWrapper<TabTemper> wrapper =new QueryWrapper<>();
+        wrapper.lambda().eq(TabTemper::getUid,uid);
+        List<TabTemper> list = tabTemperService.list(wrapper);
         return list;
     }
 
     @Override
-    public Boolean DeleOneTemper(String temper) {
-        List<TabTemper> list = tabTemperService.list(null);
+    public Boolean DeleOneTemper(Integer uid,String temper) {
         QueryWrapper<TabTemper> wrapper= new QueryWrapper<>();
-        for (TabTemper tabTemper : list) {
-            if (temper.equals(tabTemper.getT1())) {
-                wrapper.lambda().eq(TabTemper::getT1,temper);
-            }
-            else if (temper.equals(tabTemper.getT2())){
-                wrapper.lambda().eq(TabTemper::getT2,temper);
-            }
-            else if (temper.equals(tabTemper.getT3())){
-                wrapper.lambda().eq(TabTemper::getT3,temper);
-            }
-            else if (temper.equals(tabTemper.getT4())){
-                wrapper.lambda().eq(TabTemper::getT4,temper);
-            }
-            else if (temper.equals(tabTemper.getT5())){
-                wrapper.lambda().eq(TabTemper::getT5,temper);
-            }
-            else if (temper.equals(tabTemper.getT6())){
-                wrapper.lambda().eq(TabTemper::getT6,temper);
-            }
-            else if (temper.equals(tabTemper.getT7())){
-                wrapper.lambda().eq(TabTemper::getT7,temper);
-            }
-            else if (temper.equals(tabTemper.getT8())){
-                wrapper.lambda().eq(TabTemper::getT8,temper);
-            }
+        wrapper.lambda().eq(TabTemper::getUid,uid);
+        wrapper.lambda().eq(TabTemper::getTemperdemo,temper);
+        TabTemper one = tabTemperService.getOne(wrapper);
+        if (one!=null){
+            tabTemperService.remove(wrapper);
+            return true;
+        }else {
+            return false;
         }
-        boolean flag = tabTemperService.remove(wrapper);
-        return flag;
+
     }
 }

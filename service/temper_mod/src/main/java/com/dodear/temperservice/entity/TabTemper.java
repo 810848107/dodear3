@@ -28,21 +28,7 @@ public class TabTemper implements Serializable {
     @TableId(value = "tid", type = IdType.AUTO)
     private Integer tid;
 
-    private String t1;
-
-    private String t2;
-
-    private String t3;
-
-    private String t4;
-
-    private String t5;
-
-    private String t6;
-
-    private String t7;
-
-    private String t8;
+    private String temperdemo;
 
     private Integer uid;
 
