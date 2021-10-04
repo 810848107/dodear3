@@ -46,6 +46,7 @@ public class TabTemperController {
         if (flag) {
             return Result.ok();
         }else {
+
             return Result.error().message("删除失败");
         }
 
