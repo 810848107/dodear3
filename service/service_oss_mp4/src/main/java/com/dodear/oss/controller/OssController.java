@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/osservice/fileoss")
+@RequestMapping("/ossmp4")
 @CrossOrigin//跨域
 @Api(description = "上传文件模块")
 public class OssController {
@@ -27,15 +27,20 @@ public class OssController {
     @Autowired
     private OssServiceForMp4 ossServiceForMp4;
 
-    //上传用户录音的方法
-    @PostMapping
+    /**
+     * 上传用户录音到oss
+     * @param file
+     * @param request
+     * @param response
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    @PostMapping("/put")
     @ApiOperation("上传用户录音的方法")
     public Result uploadFileForMP4(MultipartFile file, HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         //获取上传文件 MultipartFile
         String url=ossServiceForMp4.uploadFileForMP4(file);
-//        request.setAttribute("url",url);
-//        RequestDispatcher requestDispatcher = request.getRequestDispatcher("http://localhost:8087/recordingservice/tab-record/AddRecord/5/1");
-//        requestDispatcher.forward(request,response);
         return Result.ok().data("url",url);
     }
 }

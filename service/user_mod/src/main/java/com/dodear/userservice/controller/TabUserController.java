@@ -23,14 +23,19 @@ import java.util.List;
  * @since 2021-10-01
  */
 @RestController
-@RequestMapping("/userservice/tab-user")
+@RequestMapping("/user")
 @Api(description = "用户模块")
 public class TabUserController {
 
     @Autowired
     private TabUserService tabUserService;
 
-    @GetMapping("FindOneByTel/{tel}")
+    /**
+     * 根据用户电话查询唯一用户
+     * @param tel
+     * @return
+     */
+    @GetMapping("/find/{tel}")
     @ApiOperation(value = "根据用户电话查唯一用户")
     public Result FindOneByTel(@PathVariable String tel) {
         TabUser tabUser = tabUserService.FindOneByTel(tel);
@@ -42,7 +47,12 @@ public class TabUserController {
 
     }
 
-    @PostMapping
+    /**
+     * 添加用户到数据库
+     * @param tabUser
+     * @return
+     */
+    @PostMapping("/add")
     @ApiOperation(value = "添加用户到数据库")
     public Result AddOneUser(@RequestBody TabUser tabUser){
         Boolean flag = tabUserService.AddOneUser(tabUser);

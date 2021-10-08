@@ -20,14 +20,19 @@ import java.util.List;
  * @since 2021-10-02
  */
 @RestController
-@RequestMapping("/recordingservice/tab-record")
+@RequestMapping("/recording")
 public class TabRecordController {
 
     @Autowired
     private TabRecordService tabRecordService;
 
 
-    @PostMapping
+    /**
+     * 添加一个录音到数据库
+     * @param tabRecord
+     * @return
+     */
+    @PostMapping("/add")
     public Result AddRecord(@RequestBody TabRecord tabRecord){
 
         Boolean save = tabRecordService.AddRecord(tabRecord);
@@ -38,7 +43,11 @@ public class TabRecordController {
         }
     }
 
-    @GetMapping
+    /**
+     * 展示所有录音
+     * @return
+     */
+    @GetMapping("/show")
     public Result ShowRecords(){
         List<TabRecord> list = tabRecordService.ShowRecords();
 

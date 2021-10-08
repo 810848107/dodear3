@@ -18,13 +18,18 @@ import java.util.List;
  * @since 2021-10-04
  */
 @RestController
-@RequestMapping("/temperservice/tab-temper")
+@RequestMapping("/temper")
 public class TabTemperController {
 
     @Autowired
     private TabTemperService tabTemperService;
 
-    @PostMapping
+    /**
+     * 添加一个心情到数据库
+     * @param tabTemper
+     * @return
+     */
+    @PostMapping("/add")
     public Result AddOneTemperByUid(@RequestBody TabTemper tabTemper){
         Boolean flag = tabTemperService.AddOneTemperByUid(tabTemper);
         if (flag) {
@@ -34,13 +39,24 @@ public class TabTemperController {
         }
     }
 
-    @GetMapping("showAllTemperByUid/{uid}")
+    /**
+     * 展示一个用户的所有心情
+     * @param uid
+     * @return
+     */
+    @GetMapping("/show/{uid}")
     public Result ShowAllTemperByUid(@PathVariable Integer uid){
         List<TabTemper> list = tabTemperService.ShowAllTemperByUid(uid);
         return Result.ok().data("tempers",list);
     }
 
-    @GetMapping("deleOneTemper/{uid}/{temper}")
+    /**
+     * 删除一个用户的一个心情
+     * @param uid
+     * @param temper
+     * @return
+     */
+    @GetMapping("/dele/{uid}/{temper}")
     public Result DeleOneTemper(@PathVariable Integer uid,@PathVariable String temper){
         Boolean flag = tabTemperService.DeleOneTemper(uid, temper);
         if (flag) {

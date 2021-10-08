@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/osservice/fileoss")
+@RequestMapping("/ossimg")
 @CrossOrigin//跨域
 @Api(description = "上传文件模块")
 public class OssController {
@@ -19,8 +19,12 @@ public class OssController {
     private OssService ossService;
 
 
-    //上传用户头像的方法
-    @PostMapping
+    /**
+     * 上传用户头像
+     * @param file
+     * @return
+     */
+    @PostMapping("/put")
     @ApiOperation("上传用户头像的方法")
     public Result uploadOssUimgFile(MultipartFile file){
         //获取上传文件 MultipartFile
